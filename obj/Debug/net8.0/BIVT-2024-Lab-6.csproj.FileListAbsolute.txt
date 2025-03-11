@@ -1,0 +1,15 @@
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/bin/Debug/net8.0/BIVT-2024-Lab-6
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/bin/Debug/net8.0/BIVT-2024-Lab-6.deps.json
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/bin/Debug/net8.0/BIVT-2024-Lab-6.runtimeconfig.json
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/bin/Debug/net8.0/BIVT-2024-Lab-6.dll
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/bin/Debug/net8.0/BIVT-2024-Lab-6.pdb
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/BIVT-2024-Lab-6.GeneratedMSBuildEditorConfig.editorconfig
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/BIVT-2024-Lab-6.AssemblyInfoInputs.cache
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/BIVT-2024-Lab-6.AssemblyInfo.cs
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/BIVT-2024-Lab-6.csproj.CoreCompileInputs.cache
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/BIVT-2024-Lab-6.sourcelink.json
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/BIVT-2024-Lab-6.dll
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/refint/BIVT-2024-Lab-6.dll
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/BIVT-2024-Lab-6.pdb
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/BIVT-2024-Lab-6.genruntimeconfig.cache
+/home/qquerell/programming/uni/BIVT-2024-Lab-6/obj/Debug/net8.0/ref/BIVT-2024-Lab-6.dll
