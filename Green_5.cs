@@ -4,7 +4,7 @@ using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab_6 {
+namespace Lab_7 {
   public class Green_5 {
     public struct Student {
       // Поля
@@ -56,7 +56,6 @@ namespace Lab_6 {
       private string? _name;
       private Student[] _students;
       private  int _studentsCount;
-
       // Доп Поле
       private double _sumAvgMarks;
 

@@ -6,7 +6,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab_6 {
+namespace Lab_7 {
   public class Green_4 {
     public struct Participant {
       // Поля

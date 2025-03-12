@@ -5,7 +5,7 @@ using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab_6  {
+namespace Lab_7  {
   public class Green_3 {
     public class Student {
       // Поля
@@ -20,9 +20,9 @@ namespace Lab_6  {
       // Свойства
       public string? Name => _name is not null ? _name : null;
       public string? Surname => _surname is not null ? _surname : null;
-      public int[] Marks => _marks is not null ? _marks : new int[_examsCount];
+      public int[] Marks => (int[])_marks.Clone(); 
       public double AvgMark => _marks is not null && _marks.Count(c => c != 0) != 0 ? (double)_marks.Sum()/ _marks.Count(c => c != 0) : 0;
-      public double StudentId => _studentId;
+      public double ID => _studentId;
       public bool IsExpelled => _isExpelled;
 
       // Статический конструктор
@@ -112,7 +112,7 @@ namespace Lab_6  {
             for (int j = 0; j < n - i - 1; j++)
             {
                 // Сравниваем средние баллы групп
-                if (students[j].StudentId > students[j + 1].StudentId)
+                if (students[j].ID > students[j + 1].ID)
                 {
                     // Меняем местами группы
                     Student temp = students[j];
@@ -166,7 +166,7 @@ namespace Lab_6  {
 
         bool studentExist = false;
         for (int i = 0; i < students.Length; i++) {
-          if (students[i].StudentId == restored.StudentId) {
+          if (students[i].ID == restored.ID) {
             studentExist = true;
             break;
           }
@@ -179,7 +179,7 @@ namespace Lab_6  {
         bool isAlreadyRestored = false;
         for (int i = 0; i < students.Length; i++)
         {
-          if (students[i].StudentId == restored.StudentId && !students[i].IsExpelled)
+          if (students[i].ID == restored.ID && !students[i].IsExpelled)
           {
             isAlreadyRestored = true;
             break;
@@ -204,6 +204,9 @@ namespace Lab_6  {
 
         Sort(students);
       }
+
+      public void Print() { }
+
     } 
   }
 }

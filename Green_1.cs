@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab_6
+namespace Lab_7
 {
     public class Green_1
     {
@@ -38,9 +38,9 @@ namespace Lab_6
             public string? Surname => _surname is not null ? _surname : null;
             public string? Group => _group is not null ? _group : null;
             public string? Trainer => _coachSurname is not null ? _coachSurname : null;
-            public double? Result => _result != 0 ? _result : 0;
+            public double Result => _result;
             public static int? PassedTheStandard => _passedCount;
-            public bool? HasPassed => _result <= _standard;
+            public bool HasPassed => _result <= _standard;
 
             // Методы
             public void Run(double result)

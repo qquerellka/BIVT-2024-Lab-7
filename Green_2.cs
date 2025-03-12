@@ -6,7 +6,7 @@ using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab_6 {
+namespace Lab_7 {
   public class Green_2 {
     public class Human {
       // Поля 
@@ -36,7 +36,7 @@ namespace Lab_6 {
       public int[] Marks => _marks is not null ? _marks : new int[_examsCount];
       public double AvgMark => _marks is not null ? (double)_marks.Sum() / _examsCount : 0;
       public bool IsExcellent => _marks is not null && Array.TrueForAll(_marks, m => m >= 4);
-      public static int CountGreatStudents => _countGreatStudents;
+      public static int ExcellentAmount => _countGreatStudents;
 
       // Конструктор
       public Student(string name, string surname) : base(name, surname) {
