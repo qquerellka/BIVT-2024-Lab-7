@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,50 +8,50 @@ using System.Threading.Tasks;
 namespace Lab_7 {
   public class Green_5 {
     public struct Student {
-      // Поля
-      private string? _name;
-      private string? _surname;
-      private int[]? _marks;
-      private const int _examsCount = 5;
+  // Поля
+  private string? _name;
+  private string? _surname;
+  private int[]? _marks;
+  private const int _examsCount = 5;
 
-      // Доп Поле
-      private int _sumMarks;
+  // Доп Поле
+  private int _sumMarks;
 
-      // Свойства
-      public string? Name => _name is not null ? _name : null;
-      public string? Surname => _surname is not null ? _surname : null;
-      public int[]? Marks => _marks;
-      public double AvgMark => _marks is not null ? (double)_sumMarks/ _examsCount : 0;
+  // Свойства
+  public string? Name => _name is not null ? _name : null;
+  public string? Surname => _surname is not null ? _surname : null;
+  public ref int[]? Marks => ref _marks; // ✅ Возвращаем ссылку на массив
+  public double AvgMark => _marks is not null ? (double)_sumMarks / _examsCount : 0;
 
-      // Конструктор
-      public Student(string name, string surname) {
-        this._name = name is not null ? name :  null;
-        this._surname = surname is not null ? surname : null;
-        this._marks = new int[_examsCount];
-        this._sumMarks = 0;
-      }
+  // Конструктор
+  public Student(string name, string surname) {
+    this._name = name is not null ? name : null;
+    this._surname = surname is not null ? surname : null;
+    this._marks = new int[_examsCount];
+    this._sumMarks = 0;
+  }
 
-      // Методы
-      public void Exam(int mark) {
-        if ( mark < 2 || mark > 5) {
-          Console.WriteLine("Неверный формат оценки");
-          return;
-        }
-        if (_marks == null) {
-          _marks = new int[_examsCount];
-        }
-        for (int i = 0; i < _examsCount; i++) {
-          if (_marks[i] == 0) {
-            _marks[i] = mark;
-            _sumMarks+=mark;
-            return;
-          }
-        }
-      }
-
-      public void Print() { }
-
+  // Методы
+  public void Exam(int mark) {
+    if (mark < 2 || mark > 5) {
+      Console.WriteLine("Неверный формат оценки");
+      return;
     }
+    if (_marks == null) {
+      _marks = new int[_examsCount];
+    }
+    for (int i = 0; i < _examsCount; i++) {
+      if (_marks[i] == 0) {
+        _marks[i] = mark;
+        _sumMarks += mark;
+        return;
+      }
+    }
+  }
+
+  public void Print(){}
+}
+
     public class Group {
       // Поля 
       private string? _name;
