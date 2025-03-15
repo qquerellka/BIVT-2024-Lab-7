@@ -21,7 +21,9 @@ namespace Lab_7 {
       public double[]? Jumps => _jumps;
       // public double[] Jumps => _jumps is not null ? _jumps : new double[_jumpsCount];
 
-      public double BestJump => _jumps is not null ? _jumps.Max() : 0;
+      // public double BestJump => _jumps is not null ? _jumps.Max() : 0;
+      public double BestJump => _jumps != null && _jumps.Length > 0 ? _jumps.Max() : 0;
+
 
       // Конструктор
       public Participant(string name, string surname) {
@@ -81,6 +83,7 @@ namespace Lab_7 {
         // Свойства
         public string? Name => _name is not null ? _name : null;
         public Participant[] Participants => _participants;
+        public int ParticipantCount => _participantCount;
 
         // Конструктор
         protected Discipline(string name) 
@@ -91,8 +94,12 @@ namespace Lab_7 {
         }
 
         // Методы
-        public void Add(Participant participant) {
-          _participants[_participantCount++] = participant;
+        public void Add(Participant participant)
+        {
+          if (_participantCount < _participants.Length)
+          {
+            _participants[_participantCount++] = participant;
+          }
         }
         public void Add(Participant[] participants) {
           foreach (Participant participant in participants)
@@ -112,7 +119,16 @@ namespace Lab_7 {
 
       public override void Retry(int index)
       {
+        if (index < 0 || index >= ParticipantCount)
+        {
+            Console.WriteLine("Некорректный индекс участника.");
+            return;
+        }
+
         if (index < 0 || index >= Participants.Length)
+
+        // if (index < 0 || index >= _participantCount)
+
         {
             Console.WriteLine("Некорректный индекс участника.");
             return;
@@ -133,6 +149,11 @@ namespace Lab_7 {
 
       public override void Retry(int index)
       {
+        if (index < 0 || index >= ParticipantCount)
+        {
+            Console.WriteLine("Некорректный индекс участника.");
+            return;
+        }
         if (index < 0 || index >= Participants.Length)
         {
             Console.WriteLine("Некорректный индекс участника.");
