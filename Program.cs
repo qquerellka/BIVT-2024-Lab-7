@@ -205,6 +205,21 @@ Console.WriteLine($"Общее количество отличников: {Green
             }
             Console.WriteLine();
 
+            Green_3.Commission.Sort(students2);
+
+            foreach (var student in students2)
+            {
+                Console.WriteLine($"{student.Name} {student.Surname} {student.AvgMark} {student.IsExpelled} {student.ID}");
+            }
+            Console.WriteLine();
+
+
+            foreach (var student in Green_3.Commission.Expel(ref students2))
+            {
+                Console.WriteLine($"{student.Name} {student.Surname} {student.AvgMark} {student.IsExpelled} {student.ID}");
+            }
+            Console.WriteLine();
+            
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             Console.WriteLine("Green_4");

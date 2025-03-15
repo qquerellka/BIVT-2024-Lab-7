@@ -14,15 +14,18 @@ namespace Lab_7  {
       private int[] _marks;
       private bool _isExpelled;
       private const int _examsCount = 3;
-       private static int _nextStudentId = 1; 
+      private int _nextStudentId = 1; 
       private int _studentId;
 
       // Свойства
       public string? Name => _name is not null ? _name : null;
       public string? Surname => _surname is not null ? _surname : null;
-      public int[] Marks => (int[])_marks.Clone(); 
-      public double AvgMark => _marks is not null && _marks.Count(c => c != 0) != 0 ? (double)_marks.Sum()/ _marks.Count(c => c != 0) : 0;
-      public double ID => _studentId;
+      // public int[] Marks => (int[])_marks.Clone(); 
+
+      public int[] Marks => _marks; 
+
+      public double AvgMark => _marks is not null && _marks.Any(c => c != 0) ? (double)_marks.Sum()/ _marks.Count(c => c != 0) : 0;
+      public int ID => _studentId;
       public bool IsExpelled => _isExpelled;
 
       // Статический конструктор
@@ -36,20 +39,20 @@ namespace Lab_7  {
         this._name = name is not null ? name :  null;
         this._surname = surname is not null ? surname : null;
         this._marks = new int[_examsCount];
-        for (int i = 0; i < _examsCount; i++) {
-          _marks[i] = 0;
-        }
+        // for (int i = 0; i < _examsCount; i++) {
+        //   _marks[i] = 0;
+        // }
         this._isExpelled = false;
         this._studentId = _nextStudentId++;
       }
 
       // Методы
-       public void Restore() {
-        if (_isExpelled) {
-          _isExpelled = false;
-        }
-      
-       }
+      public void Restore() {
+      if (_isExpelled) {
+        _isExpelled = false;
+      }
+    
+      }
       public void Exam(int mark) {
         if (_isExpelled) {
           return;
