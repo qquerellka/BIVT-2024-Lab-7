@@ -16,7 +16,7 @@ namespace Lab_7
             private string? _coachSurname;
             private double _result;
             protected double _standard;
-            private static int _passedCount;
+            private static int _passedCount = 0;
 
             // Статический конструктор
             // static Participant()
@@ -40,7 +40,7 @@ namespace Lab_7
             public string? Trainer => _coachSurname is not null ? _coachSurname : null;
             public double Result => _result;
             public static int? PassedTheStandard => _passedCount;
-            public bool HasPassed => _result <= _standard;
+            public bool HasPassed => _result > 0 && _result <= _standard;
 
             // Методы
             public void Run(double result)
@@ -48,7 +48,7 @@ namespace Lab_7
                 if (_result == 0)
                 {
                     this._result = result;
-                    if (result <= _standard)
+                    if (result > 0 && result <= _standard)
                     {
                         _passedCount++;
                     }
