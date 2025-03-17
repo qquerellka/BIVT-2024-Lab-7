@@ -20,9 +20,7 @@ namespace Lab_7  {
       // Свойства
       public string? Name => _name is not null ? _name : null;
       public string? Surname => _surname is not null ? _surname : null;
-      // public int[] Marks => (int[])_marks.Clone(); 
-
-      public int[] Marks => _marks; 
+      public int[] Marks => (int[])_marks.Clone(); 
 
       public double AvgMark => _marks is not null && _marks.Any(c => c != 0) ? (double)_marks.Sum()/ _marks.Count(c => c != 0) : 0;
       public int ID => _studentId;
@@ -53,29 +51,46 @@ namespace Lab_7  {
       }
     
       }
+      // public void Exam(int mark) {
+      //   if (_isExpelled) {
+      //     return;
+      //   }
+      //   if (mark < 2 || mark > 5) {
+      //     Console.WriteLine("Оценка должна быть от 2 до 5");
+      //     return;
+      //   }
+      //   if (Marks == null) {
+      //     Console.WriteLine("Массив оценок не инициализирован");
+      //      return;
+      //   }
+      //   for (int i = 0; i < _examsCount; i++) {
+      //     if (Marks[i] == 0) {
+      //       if (mark == 2) {
+      //         _isExpelled = true;
+      //       }
+      //       Marks[i] = mark;
+      //       return;
+      //     }
+      //   }
+      // }
+
       public void Exam(int mark) {
-        if (_isExpelled) {
-          return;
-        }
         if (mark < 2 || mark > 5) {
           Console.WriteLine("Оценка должна быть от 2 до 5");
           return;
         }
-        if (Marks == null) {
+        if (_marks == null) {
           Console.WriteLine("Массив оценок не инициализирован");
-           return;
+          return;
         }
+
         for (int i = 0; i < _examsCount; i++) {
-          if (Marks[i] == 0) {
-            if (mark == 2) {
-              _isExpelled = true;
-            }
-            Marks[i] = mark;
+          if (_marks[i] == 0) {
+            _marks[i] = mark;
             return;
           }
         }
       }
-
       public static void SortByAvgMark(Student[] array) {
         if (array == null) {
           Console.WriteLine("Массив студентов не инициализирован");
@@ -209,7 +224,6 @@ namespace Lab_7  {
       }
 
       public void Print() { }
-
     } 
   }
 }

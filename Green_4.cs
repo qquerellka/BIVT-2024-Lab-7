@@ -18,7 +18,7 @@ namespace Lab_7 {
       // Свойства
       public string? Name => _name is not null ? _name : null;
       public string? Surname => _surname is not null ? _surname : null;
-      public double[]? Jumps => _jumps;
+      public double[] Jumps => (double[])_jumps.Clone();
       // public double[] Jumps => _jumps is not null ? _jumps : new double[_jumpsCount];
 
       // public double BestJump => _jumps is not null ? _jumps.Max() : 0;
@@ -38,11 +38,13 @@ namespace Lab_7 {
           return;
         }
         if (_jumps == null) {
-          _jumps = new double[_jumpsCount];
+          Console.WriteLine("Массив прыжков не инициализирован");
+          return;
+          // _jumps = new double[_jumpsCount];
         }
         for (int i = 0; i < _jumpsCount; i++) {
-          if (Jumps[i] == 0) {
-            Jumps[i] = result;
+          if (_jumps[i] == 0) {
+            _jumps[i] = result;
             return;
           }
         }
@@ -89,17 +91,21 @@ namespace Lab_7 {
         protected Discipline(string name) 
         {
           this._name = name is not null ? name : null;
-          this._participants = new Participant[100];
+          this._participants = new Participant[0];
           this._participantCount = 0;
         }
 
         // Методы
         public void Add(Participant participant)
         {
-          if (_participantCount < _participants.Length)
-          {
+            if (_participantCount == _participants.Length)
+            {
+                Participant[] newParticipants = new Participant[_participantCount == 0 ? 1 : _participants.Length * 2];
+                Array.Copy(_participants, newParticipants, _participants.Length);
+                _participants = newParticipants;
+            }
+            
             _participants[_participantCount++] = participant;
-          }
         }
         public void Add(Participant[] participants) {
           foreach (Participant participant in participants)

@@ -20,7 +20,7 @@ namespace Lab_7 {
   // Свойства
   public string? Name => _name is not null ? _name : null;
   public string? Surname => _surname is not null ? _surname : null;
-  public ref int[]? Marks => ref _marks; // ✅ Возвращаем ссылку на массив
+  public int[] Marks => (int[])_marks.Clone(); 
   public double AvgMark => _marks is not null ? (double)_sumMarks / _examsCount : 0;
 
   // Конструктор
@@ -62,7 +62,7 @@ namespace Lab_7 {
 
       // Свойства
       public string? Name => _name is not null ? _name : null;
-      public Student[] Students => _students;
+      public Student[] Students => (Student[])_students.Clone();
       public virtual double AvgMark => _studentsCount > 0 ? _sumAvgMarks / _studentsCount : 0;
 
       // Конструктор

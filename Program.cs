@@ -219,7 +219,7 @@ Console.WriteLine($"Общее количество отличников: {Green
                 Console.WriteLine($"{student.Name} {student.Surname} {student.AvgMark} {student.IsExpelled} {student.ID}");
             }
             Console.WriteLine();
-            
+            Console.WriteLine(students2[0].Marks[0]);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             Console.WriteLine("Green_4");
