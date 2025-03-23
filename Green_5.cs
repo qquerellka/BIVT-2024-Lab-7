@@ -20,7 +20,7 @@ namespace Lab_7 {
   // Свойства
   public string? Name => _name is not null ? _name : null;
   public string? Surname => _surname is not null ? _surname : null;
-  public int[] Marks => (int[])_marks.Clone(); 
+  public int[] Marks =>  _marks is not null ? (int[])_marks.Clone() : new int[_examsCount]; 
   public double AvgMark => _marks is not null ? (double)_sumMarks / _examsCount : 0;
 
   // Конструктор
@@ -62,7 +62,9 @@ namespace Lab_7 {
 
       // Свойства
       public string? Name => _name is not null ? _name : null;
-      public Student[] Students => (Student[])_students.Clone();
+      // public Student[] Students => (Student[])_students.Clone();
+
+      public Student[] Students => _students[.._studentsCount];
       public virtual double AvgMark => _studentsCount > 0 ? _sumAvgMarks / _studentsCount : 0;
 
       // Конструктор
@@ -116,72 +118,54 @@ namespace Lab_7 {
 
     }
 
-    public class EliteGroup : Group
-    {
-      public EliteGroup(string? name) : base(name) { }
+    public class EliteGroup : Group {
+      public EliteGroup(string name) : base(name) {}
 
-      public override double AvgMark
-      {
-          get
-          {
-              double weightedSum = 0;
-              int count = 0;
-              foreach (Student student in Students)
-              {
-                  if (student.Marks.Length > 0)
-                  {
-                      foreach (double mark in student.Marks)
-                      {
-                          double weight = mark switch
-                          {
-                              5 => 1.0,
-                              4 => 1.5,
-                              3 => 2.0,
-                              2 => 2.5,
-                              _ => 0
-                          };
-                          weightedSum += mark * weight;
-                          count += (int)weight;
-                      }
-                  }
-              }
-              return count > 0 ? weightedSum / count : 0;
+      public override double AvgMark {
+        get {
+          double weightedSum = 0;
+          double totalWeight = 0;
+          foreach (var student in Students) {
+            foreach (var mark in student.Marks) {
+              double weight = mark switch {
+                5 => 1.0,
+                4 => 1.5,
+                3 => 2.0,
+                2 => 2.5,
+                _ => 0
+              };
+              weightedSum += mark * weight;
+              totalWeight += weight;
+            }
           }
+          return totalWeight > 0 ? weightedSum / totalWeight : 0;
+        }
       }
     }
 
-    public class SpecialGroup : Group
-    {
-        public SpecialGroup(string? name) : base(name) { }
+    public class SpecialGroup : Group {
+      public SpecialGroup(string name) : base(name) {}
 
-        public override double AvgMark
-        {
-            get
-            {
-                double weightedSum = 0;
-                int count = 0;
-                foreach (Student student in Students)
-                {
-                    if (student.Marks.Length > 0)
-                    {
-                        foreach (double mark in student.Marks)
-                        {
-                            double weight = mark switch
-                            {
-                                5 => 1.0,
-                                4 => 0.75,
-                                3 => 0.5,
-                                2 => 0.25,
-                                _ => 0
-                            };
-                            weightedSum += mark * weight;
-                            count += (int)weight;
-                        }
-                    }
-                }
-                return count > 0 ? weightedSum / count : 0;
+      public override double AvgMark {
+        get {
+          double weightedSum = 0;
+          double totalWeight = 0;
+          foreach (var student in Students) {
+            foreach (var mark in student.Marks) {
+              double weight = mark switch {
+                5 => 1.0,
+                4 => 0.75,
+                3 => 0.5,
+                2 => 0.25,
+                _ => 0
+              };
+              weightedSum += mark * weight;
+              totalWeight += weight;
             }
+          }
+          return totalWeight > 0 ? weightedSum / totalWeight : 0;
         }
+      }
     }
 
   }
