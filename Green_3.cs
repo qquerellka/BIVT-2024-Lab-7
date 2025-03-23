@@ -14,7 +14,7 @@ namespace Lab_7  {
       private int[] _marks;
       private bool _isExpelled;
       private const int _examsCount = 3;
-      private int _nextStudentId = 1; 
+      private static int _nextStudentId = 1; 
       private int _studentId;
 
       // Свойства
@@ -22,15 +22,15 @@ namespace Lab_7  {
       public string? Surname => _surname is not null ? _surname : null;
       public int[] Marks => (int[])_marks.Clone(); 
 
-      public double AvgMark => _marks is not null && _marks.Any(c => c != 0) ? (double)_marks.Sum()/ _marks.Count(c => c != 0) : 0;
+      public double AvgMark => _marks.Any(m => m != 0) ? _marks.Where(m => m != 0).Average() : 0;
       public int ID => _studentId;
       public bool IsExpelled => _isExpelled;
 
       // Статический конструктор
-      // static Student()
-      // {
-      //   _nextStudentId = 1; 
-      // }
+      static Student()
+      {
+        _nextStudentId = 1; 
+      }
 
       // Конструктор
       public Student(string name, string surname) {
@@ -46,10 +46,7 @@ namespace Lab_7  {
 
       // Методы
       public void Restore() {
-      if (_isExpelled) {
         _isExpelled = false;
-      }
-    
       }
       // public void Exam(int mark) {
       //   if (_isExpelled) {
@@ -177,49 +174,69 @@ namespace Lab_7  {
 
 
       public static void Restore(ref Student[] students, Student restored) {
-        if (students == null || restored == null) {
-          Console.WriteLine("Массив студентов не инициализирован");
-          return;
-        }
+        // if (students == null || restored == null) {
+        //   Console.WriteLine("Массив студентов не инициализирован");
+        //   return;
+        // }
 
-        bool studentExist = false;
-        for (int i = 0; i < students.Length; i++) {
-          if (students[i].ID == restored.ID) {
-            studentExist = true;
-            break;
-          }
-        }
+        // bool studentExist = false;
+        // for (int i = 0; i < students.Length; i++) {
+        //   if (students[i].ID == restored.ID) {
+        //     studentExist = true;
+        //     break;
+        //   }
+        // }
 
-        if (!studentExist) {
-          return;
-        }
+        // if (!studentExist) {
+        //   return;
+        // }
 
-        bool isAlreadyRestored = false;
-        for (int i = 0; i < students.Length; i++)
+        // bool isAlreadyRestored = false;
+        // for (int i = 0; i < students.Length; i++)
+        // {
+        //   if (students[i].ID == restored.ID && !students[i].IsExpelled)
+        //   {
+        //     isAlreadyRestored = true;
+        //     break;
+        //   }
+        // }
+
+        // if (isAlreadyRestored)
+        // {
+        //   return;
+        // }
+
+        // Student[] updatedStudents = new Student[students.Length + 1];
+        // int index = 0;
+
+        // for (int i = 0; i < students.Length; i++)
+        // {
+        //   updatedStudents[index++] = students[i];
+        // }
+
+        // updatedStudents[index] = restored;
+        // students = updatedStudents;
+        if (students == null || restored == null)
         {
-          if (students[i].ID == restored.ID && !students[i].IsExpelled)
-          {
-            isAlreadyRestored = true;
-            break;
-          }
+            Console.WriteLine("Ошибка: массив студентов не инициализирован.");
+            return;
         }
 
-        if (isAlreadyRestored)
+        bool wasInOriginalList = students.Any(s => s.ID == restored.ID);
+        if (!wasInOriginalList)
         {
-          return;
+            Console.WriteLine("Ошибка: нельзя восстановить студента, которого не было в списке.");
+            return;
         }
 
-        Student[] updatedStudents = new Student[students.Length + 1];
-        int index = 0;
-
-        for (int i = 0; i < students.Length; i++)
+        if (students.Any(s => s.ID == restored.ID && !s.IsExpelled))
         {
-          updatedStudents[index++] = students[i];
+            Console.WriteLine("Ошибка: студент уже восстановлен.");
+            return;
         }
 
-        updatedStudents[index] = restored;
-        students = updatedStudents;
-
+        students = students.Append(restored).ToArray();
+        
         Sort(students);
       }
 
