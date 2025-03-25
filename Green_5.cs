@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab_7 {
   public class Green_5 {
-    public struct Student {
+  public struct Student {
   // Поля
   private string? _name;
   private string? _surname;
@@ -62,8 +62,6 @@ namespace Lab_7 {
 
       // Свойства
       public string? Name => _name is not null ? _name : null;
-      // public Student[] Students => (Student[])_students.Clone();
-
       public Student[] Students => _students[.._studentsCount];
       public virtual double AvgMark => _studentsCount > 0 ? _sumAvgMarks / _studentsCount : 0;
 
@@ -77,11 +75,12 @@ namespace Lab_7 {
 
       // Методы
       public void Add(Student student)
-      {   if (_students == null) {
-        _students = new Student[_studentsCount];
-      }
-          _students[_studentsCount++] = student;
-          _sumAvgMarks += student.AvgMark;
+      {   
+        if (_students == null) {
+          _students = new Student[_studentsCount];
+        }
+        _students[_studentsCount++] = student;
+        _sumAvgMarks += student.AvgMark;
       }
       public void Add(Student[] students)
       {
@@ -167,6 +166,5 @@ namespace Lab_7 {
         }
       }
     }
-
   }
 }

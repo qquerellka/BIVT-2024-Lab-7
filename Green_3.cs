@@ -14,7 +14,7 @@ namespace Lab_7  {
       private int[] _marks;
       private bool _isExpelled;
       private const int _examsCount = 3;
-      private static int _nextStudentId = 1; 
+      private static int _nextStudentId = 0; 
       private int _studentId;
 
       // Свойства
@@ -22,7 +22,7 @@ namespace Lab_7  {
       public string? Surname => _surname is not null ? _surname : null;
       public int[] Marks => (int[])_marks.Clone(); 
 
-      public double AvgMark => _marks.Any(m => m != 0) ? _marks.Where(m => m != 0).Average() : 0;
+      public double AvgMark => _marks.Any(m => m != 0) ? (int)_marks.Where(m => m != 0).Average() : 0;
       public int ID => _studentId;
       public bool IsExpelled => _isExpelled;
 
