@@ -18,9 +18,14 @@ namespace Lab_7 {
   private int _sumMarks;
 
   // Свойства
-  public string? Name => _name is not null ? _name : null;
-  public string? Surname => _surname is not null ? _surname : null;
-  public int[] Marks =>  _marks is not null ? (int[])_marks.Clone() : new int[_examsCount]; 
+  // public string? Name => _name is not null ? _name : null;
+  // public string? Surname => _surname is not null ? _surname : null;
+  // public int[] Marks =>  _marks is not null ? (int[])_marks.Clone() : new int[_examsCount]; 
+
+  public string? Name => _name; 
+  public string? Surname => _surname; 
+  public int[]? Marks => _marks;
+
   public double AvgMark => _marks is not null ? (double)_sumMarks / _examsCount : 0;
 
   // Конструктор
@@ -62,7 +67,9 @@ namespace Lab_7 {
 
       // Свойства
       public string? Name => _name is not null ? _name : null;
-      public Student[] Students => _students[.._studentsCount];
+      // public Student[] Students => _students[.._studentsCount];
+      public Student[] Students => _students.Take(_studentsCount).ToArray();
+
       public virtual double AvgMark => _studentsCount > 0 ? _sumAvgMarks / _studentsCount : 0;
 
       // Конструктор
@@ -74,13 +81,21 @@ namespace Lab_7 {
       }
 
       // Методы
-      public void Add(Student student)
-      {   
-        if (_students == null) {
-          _students = new Student[_studentsCount];
-        }
-        _students[_studentsCount++] = student;
-        _sumAvgMarks += student.AvgMark;
+      // public void Add(Student student)
+      // {   
+      //   if (_students == null) {
+      //     _students = new Student[_studentsCount];
+      //   }
+      //   _students[_studentsCount++] = student;
+      //   _sumAvgMarks += student.AvgMark;
+      // }
+
+      public void Add(Student student) {
+          if (_studentsCount >= _students.Length) {
+              Array.Resize(ref _students, _students.Length * 2);
+          }
+          _students[_studentsCount++] = student;
+          _sumAvgMarks += student.AvgMark;
       }
       public void Add(Student[] students)
       {
@@ -122,24 +137,30 @@ namespace Lab_7 {
 
       public override double AvgMark {
         get {
-          double weightedSum = 0;
-          double totalWeight = 0;
-          foreach (var student in Students) {
-            foreach (var mark in student.Marks) {
-              double weight = mark switch {
-                5 => 1.0,
-                4 => 1.5,
-                3 => 2.0,
-                2 => 2.5,
-                _ => 0
-              };
-              weightedSum += mark * weight;
-              totalWeight += weight;
+            double weightedSum = 0;
+            double totalWeight = 0;
+            int countedStudents = 0;
+
+            foreach (var student in Students) {
+                if (student.Marks.Length == 0) continue; // Пропускаем студентов без оценок
+                countedStudents++;
+
+                foreach (var mark in student.Marks) {
+                    double weight = mark switch {
+                        5 => 1.0,
+                        4 => 1.5,
+                        3 => 2.0,
+                        2 => 2.5,
+                        _ => 0
+                    };
+                    weightedSum += mark * weight;
+                    totalWeight += weight;
+                }
             }
-          }
-          return totalWeight > 0 ? weightedSum / totalWeight : 0;
+            return countedStudents > 0 && totalWeight > 0 ? weightedSum / totalWeight : 0;
         }
       }
+
     }
 
     public class SpecialGroup : Group {
@@ -147,22 +168,27 @@ namespace Lab_7 {
 
       public override double AvgMark {
         get {
-          double weightedSum = 0;
-          double totalWeight = 0;
-          foreach (var student in Students) {
-            foreach (var mark in student.Marks) {
-              double weight = mark switch {
-                5 => 1.0,
-                4 => 0.75,
-                3 => 0.5,
-                2 => 0.25,
-                _ => 0
-              };
-              weightedSum += mark * weight;
-              totalWeight += weight;
+            double weightedSum = 0;
+            double totalWeight = 0;
+            int countedStudents = 0;
+
+            foreach (var student in Students) {
+                if (student.Marks.Length == 0) continue; // Пропускаем студентов без оценок
+                countedStudents++;
+
+                foreach (var mark in student.Marks) {
+                    double weight = mark switch {
+                        5 => 1.0,
+                        4 => 0.75,
+                        3 => 0.5,
+                        2 => 0.25,
+                        _ => 0
+                    };
+                    weightedSum += mark * weight;
+                    totalWeight += weight;
+                }
             }
-          }
-          return totalWeight > 0 ? weightedSum / totalWeight : 0;
+            return countedStudents > 0 && totalWeight > 0 ? weightedSum / totalWeight : 0;
         }
       }
     }
